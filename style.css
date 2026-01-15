@@ -1,0 +1,183 @@
+/* Reset */
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+*:not(dialog) {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
+
+/* --- */
+
+/* Imported font */
+@font-face {
+  font-family: "Mega Man 10";
+  src: url(mega-man-10.otf.woff2);
+}
+
+* {
+  font-family: "Mega Man 10", "Sans Serif";
+}
+
+body {
+  /* background-color: hsl(0, 2%, 11%); */
+  /* scanlines, would want to move these later */
+  background: linear-gradient(to top, #000000, #000000, #1d1d1d, #1d1d1d);
+  background-size: cover;
+  background-size: 100% 10px;
+
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+  color: #f224a3;
+  text-shadow: 0 0 10px #f224a3;
+}
+
+svg {
+  color: #24f2ef;
+  opacity: 0.85;
+  filter: drop-shadow(2px 0px 45px #24f2ef);
+  justify-self: center;
+  margin-block: 1rem;
+}
+
+p {
+  color: #24f2ef;
+  opacity: 0.85;
+  text-shadow: 0 0 10px #24f2ef;
+}
+
+@media screen {
+  .crt {
+    animation: scanlines infinite 55s linear;
+  }
+}
+@keyframes scanlines {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 -10px;
+  }
+}
+
+.main-content {
+  /* justify-self: center;
+  justify-content: center;
+  justify-self: center; */
+}
+
+header {
+  text-align: center;
+}
+
+.player-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.album-cover {
+  padding: 0.2rem;
+  background-color: #000000;
+  box-shadow: 0px 0px 40px #f224a3;
+}
+
+.footer {
+  background-color: #000000;
+}
+
+.control-btn {
+  background-color: #f224a3;
+  box-shadow: 0 0 10px #f224a3;
+
+  padding: 0.75rem 1rem;
+  font-size: 1.5rem;
+}
+
+.play-btn {
+  background-color: #24f2ef;
+  box-shadow: 0 0 10px #24f2ef;
+  padding: 0.75rem 1.25rem;
+  border-style: 1px solid 24f2ef;
+  border-radius: 2rem;
+}
+
+.wrapper {
+  max-width: 500px;
+  margin-inline: auto;
+}

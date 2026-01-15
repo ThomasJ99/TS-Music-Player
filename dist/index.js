@@ -1,0 +1,153 @@
+"use strict";
+// Interfaces & type
+// Mock data - contains songs "data" using the above interfaces
+const playlist = [
+    {
+        id: 1,
+        title: "Keep It Tucked",
+        artist: "ThxSoMch",
+        durationInSeconds: 174,
+        album: {
+            title: "Keep It Tucked",
+            year: 2022,
+            coverUrl: "album-1.jpg",
+        },
+    },
+    {
+        id: 2,
+        title: "Tonight",
+        artist: "PinkPantheress",
+        durationInSeconds: 175,
+        album: {
+            title: "Fancy That",
+            year: 2025,
+        },
+    },
+    {
+        id: 3,
+        title: "Aizo",
+        artist: "King Gnu",
+        durationInSeconds: 216,
+        album: {
+            title: "Aizo",
+            year: 2026,
+            coverUrl: "album-3",
+        },
+    },
+    {
+        id: 4,
+        title: "Underdog",
+        artist: "Eve",
+        durationInSeconds: 194,
+        album: {
+            title: "Underdog",
+            year: 2025,
+            coverUrl: "album-4",
+        },
+    },
+];
+// Variables
+const songTitleElement = document.getElementById("song-title");
+const songArtistElement = document.getElementById("song-artist");
+// as = type assertion - we force the element to be a specific type
+const coverImageElement = document.getElementById("cover-img");
+// Modern solution
+const searchInput = document.querySelector("#search-input"); // Add later for a search bar
+const songListContainer = document.querySelector("#song-list-container");
+const playButton = document.querySelector("#play-btn");
+let stats = "paused";
+// Logic
+playlist.forEach((song) => {
+    const card = document.createElement("article");
+    card.classList.add("player-card");
+    const title = document.createElement("h3");
+    title.textContent = song.title;
+    const artist = document.createElement("p");
+    artist.textContent = song.artist;
+    card.append(title, artist);
+    // Makes sure that the list exists, it wont crash if it doesesnt exist
+    // Connects the "card" to our play buttons
+    if (songListContainer) {
+        card.addEventListener("click", () => {
+            // use this to select a css class
+            const currentActive = document.querySelector(".class.active");
+            if (currentActive) {
+                currentActive.classList.remove("active");
+            }
+            card.classList.add("active");
+            playSong(song);
+        });
+        songListContainer.appendChild(card); // Fix card to be something else
+    }
+});
+// States for play button - implement
+if (playButton) {
+    playButton.addEventListener("click", () => {
+        const iconElement = playButton.querySelector("");
+        if (stats === "paused") {
+            stats = "playing";
+            if (iconElement) {
+                // Icon for pause
+                iconElement.textContent = "pause";
+            }
+        }
+        else {
+            stats = "paused";
+        }
+        if (iconElement) {
+            // Icon for play
+            iconElement.textContent = "play-arrow";
+        }
+    });
+}
+// Search state - implement
+if (searchInput) {
+    // (e) is a callback, e = event, usually used
+    searchInput.addEventListener("input", (e) => {
+        const target = e.target;
+        const searchTerm = target.value.toLowerCase(); // Makes searching not be case dependant
+        const allCard = document.querySelectorAll(".player-card");
+        allCard.forEach((card) => {
+            const title = card.querySelector("h3")?.textContent?.toLowerCase();
+            if (title?.includes(searchTerm)) {
+                card.classList.remove("hidden"); // Need to create "hidden" in css
+            }
+            else {
+                card.classList.add("hidden");
+            }
+        });
+    });
+}
+// Functions
+function playSong(song) {
+    if (songTitleElement) {
+        songTitleElement.textContent = song.title;
+    }
+    if (songArtistElement) {
+        songArtistElement.textContent = song.artist;
+    }
+    // Image cover
+    // if (coverImageElement) {
+    //   if (song.album.coverUrl) {
+    //     coverImageElement.src = song.album.coverUrl;
+    //   }
+    // }
+}
+// By defining it Headers, we have access to all point-notations in the if statements
+/* OLD function logic
+const currentSong = playlist[0]
+
+
+if (songTitleElement) {
+    songTitleElement.textContent = currentSong.title
+}
+
+if (songArtistElement) {
+    songArtistElement.textContent=currentSong.artist
+}
+
+if (coverImageElement) {
+    if (currentSong.album.coverUrl) {
+        coverImageElement.src = currentSong.album.coverUrl
+    }
+}*/ 
