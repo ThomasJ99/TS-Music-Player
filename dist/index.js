@@ -55,7 +55,7 @@ const coverImageElement = document.getElementById("cover-img");
 const searchInput = document.querySelector("#search-input"); // Add later for a search bar
 const songListContainer = document.querySelector("#song-list-container");
 const playButton = document.querySelector("#play-btn");
-let stats = "paused";
+let state = "paused";
 // Logic - creates new HTML <tags> with createElement and structure with append
 playlist.forEach((song) => {
     const card = document.createElement("article");
@@ -92,23 +92,26 @@ playlist.forEach((song) => {
         songListContainer.append(card);
     }
 });
-// States for play button - implement
+// States for play button
 if (playButton) {
     playButton.addEventListener("click", () => {
-        const iconElement = playButton.querySelector("button");
-        if (stats === "paused") {
-            stats = "playing";
-            if (iconElement) {
+        if (state === "paused") {
+            state = "playing";
+            console.log("playing");
+            if (true) {
+                console.log("add pause icon");
                 // Icon for pause
-                iconElement.textContent = "pause";
+                playButton.innerText = "||";
             }
         }
         else {
-            stats = "paused";
+            state = "paused";
+            console.log("paused");
         }
-        if (iconElement) {
+        if (state === "paused") {
             // Icon for play
-            iconElement.textContent = "play-arrow";
+            console.log("add play button");
+            playButton.innerHTML = "&#9658";
         }
     });
 }
