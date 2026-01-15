@@ -50,7 +50,7 @@ const playlist: Song[] = [
     album: {
       title: "Aizo",
       year: 2026,
-      coverUrl: "album-3",
+      coverUrl: "album-3.jpg",
     },
   },
 
@@ -62,7 +62,7 @@ const playlist: Song[] = [
     album: {
       title: "Underdog",
       year: 2025,
-      coverUrl: "album-4",
+      coverUrl: "album-4.jpg",
     },
   },
 ];
@@ -70,84 +70,104 @@ const playlist: Song[] = [
 const songTitleElement = document.getElementById("song-title");
 const songArtistElement = document.getElementById("song-artist");
 // as = type assertion - we force the element to be a specific type
-const coverImageElement = document.getElementById("cover-img") as HTMLImageElement;
+const coverImageElement = document.getElementById(
+  "cover-img"
+) as HTMLImageElement;
 
-// Modern solution
-const searchInput = document.querySelector("#search-input") as HTMLInputElement // Add later for a search bar
-const songListContainer = document.querySelector("#song-list-container")
-const playButton = document.querySelector("#play-btn") as HTMLButtonElement
-let stats: PlayerStatus = "paused"
+// Modern solution - new stuff
+const searchInput = document.querySelector("#search-input") as HTMLInputElement; // Add later for a search bar
+const songListContainer = document.querySelector("#song-list-container");
+const playButton = document.querySelector("#play-btn") as HTMLButtonElement;
+let stats: PlayerStatus = "paused";
 
-// Logic
+// Logic - creates new HTML <tags> with createElement and structure with append
 playlist.forEach((song) => {
-  const card = document.createElement("article")
-  card.classList.add("player-card")
+  const card = document.createElement("article");
+  card.classList.add("player-card");
 
-  const title = document.createElement("h3")
-  title.textContent = song.title
+  const coverImg = document.createElement("img");
+  coverImg.classList.add("album-cover");
 
-  const artist = document.createElement("p")
-  artist.textContent = song.artist
+  if (song.album.coverUrl) {
+    coverImg.src = song.album.coverUrl;
+  } else {
+    console.log(song.album.coverUrl);
+  }
 
-  card.append(title, artist)
+  const info = document.createElement("div");
+  info.classList.add("artist-info");
 
-  // Makes sure that the list exists, it wont crash if it doesesnt exist
-  // Connects the "card" to our play buttons
+  const title = document.createElement("h3");
+  title.textContent = song.title;
+
+  const artist = document.createElement("p");
+  artist.textContent = song.artist;
+
+  // Adds new elements to other elements - this works better than push when its a big array
+  card.append(coverImg, info);
+  info.append(title, artist);
+
+  // Clicking a card gives the class .active to said card
   if (songListContainer) {
     card.addEventListener("click", () => {
       // use this to select a css class
-      const currentActive = document.querySelector(".class.active")
+      const currentActive = document.querySelector(".active");
+      
+      // Makes sure that the list exists, it wont crash if it doesesnt exist
       if (currentActive) {
-        currentActive.classList.remove("active")
+        currentActive.classList.remove("active");
       }
-      card.classList.add("active")
-      playSong(song)
-    })
-    songListContainer.appendChild(card) // Fix card to be something else
+
+      card.classList.add("active");
+      playSong(song);
+    });
+
+    songListContainer.append(card);
   }
-})
+});
 
 // States for play button - implement
 if (playButton) {
   playButton.addEventListener("click", () => {
-    const iconElement = playButton.querySelector("")
+    
+    const iconElement = playButton.querySelector("button");
 
     if (stats === "paused") {
-      stats = "playing"
-    
+      stats = "playing";
+
       if (iconElement) {
         // Icon for pause
-        iconElement.textContent = "pause"
+        iconElement.textContent = "pause";
       }
     } else {
-      stats = "paused"
+      stats = "paused";
     }
     if (iconElement) {
       // Icon for play
-      iconElement.textContent = "play-arrow"
+      iconElement.textContent = "play-arrow";
     }
-  })
+  });
 }
 
 // Search state - implement
 if (searchInput) {
   // (e) is a callback, e = event, usually used
   searchInput.addEventListener("input", (e) => {
-    const target = e.target as HTMLInputElement
-    const searchTerm = target.value.toLowerCase() // Makes searching not be case dependant
+    const target = e.target as HTMLInputElement;
+    const searchTerm = target.value.toLowerCase(); // Makes searching not be case dependant
 
-    const allCard = document.querySelectorAll(".player-card")
+    const allCard = document.querySelectorAll(".player-card");
 
     allCard.forEach((card) => {
-      const title = card.querySelector("h3")?.textContent?.toLowerCase()
+      const title = card.querySelector("h3")?.textContent?.toLowerCase();
 
       if (title?.includes(searchTerm)) {
-        card.classList.remove("hidden") // Need to create "hidden" in css
+        card.classList.remove("hidden"); // Need to create "hidden" in css
       } else {
-        card.classList.add("hidden")
+        card.classList.add("hidden");
       }
-    })
-  })
+    });
+  });
 }
 
 // Functions
@@ -155,18 +175,18 @@ function playSong(song: Song) {
   if (songTitleElement) {
     songTitleElement.textContent = song.title;
   }
-  
+
   if (songArtistElement) {
     songArtistElement.textContent = song.artist;
   }
-  
+
+  // Implement to get a cover image on our card
   // Image cover
   // if (coverImageElement) {
   //   if (song.album.coverUrl) {
   //     coverImageElement.src = song.album.coverUrl;
   //   }
   // }
-  
 }
 
 // By defining it Headers, we have access to all point-notations in the if statements

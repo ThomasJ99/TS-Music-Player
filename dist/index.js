@@ -31,7 +31,7 @@ const playlist = [
         album: {
             title: "Aizo",
             year: 2026,
-            coverUrl: "album-3",
+            coverUrl: "album-3.jpg",
         },
     },
     {
@@ -42,7 +42,7 @@ const playlist = [
         album: {
             title: "Underdog",
             year: 2025,
-            coverUrl: "album-4",
+            coverUrl: "album-4.jpg",
         },
     },
 ];
@@ -51,39 +51,51 @@ const songTitleElement = document.getElementById("song-title");
 const songArtistElement = document.getElementById("song-artist");
 // as = type assertion - we force the element to be a specific type
 const coverImageElement = document.getElementById("cover-img");
-// Modern solution
+// Modern solution - new stuff
 const searchInput = document.querySelector("#search-input"); // Add later for a search bar
 const songListContainer = document.querySelector("#song-list-container");
 const playButton = document.querySelector("#play-btn");
 let stats = "paused";
-// Logic
+// Logic - creates new HTML <tags> with createElement and structure with append
 playlist.forEach((song) => {
     const card = document.createElement("article");
     card.classList.add("player-card");
+    const coverImg = document.createElement("img");
+    coverImg.classList.add("album-cover");
+    if (song.album.coverUrl) {
+        coverImg.src = song.album.coverUrl;
+    }
+    else {
+        console.log(song.album.coverUrl);
+    }
+    const info = document.createElement("div");
+    info.classList.add("artist-info");
     const title = document.createElement("h3");
     title.textContent = song.title;
     const artist = document.createElement("p");
     artist.textContent = song.artist;
-    card.append(title, artist);
-    // Makes sure that the list exists, it wont crash if it doesesnt exist
-    // Connects the "card" to our play buttons
+    // Adds new elements to other elements - this works better than push when its a big array
+    card.append(coverImg, info);
+    info.append(title, artist);
+    // Clicking a card gives the class .active to said card
     if (songListContainer) {
         card.addEventListener("click", () => {
             // use this to select a css class
-            const currentActive = document.querySelector(".class.active");
+            const currentActive = document.querySelector(".active");
+            // Makes sure that the list exists, it wont crash if it doesesnt exist
             if (currentActive) {
                 currentActive.classList.remove("active");
             }
             card.classList.add("active");
             playSong(song);
         });
-        songListContainer.appendChild(card); // Fix card to be something else
+        songListContainer.append(card);
     }
 });
 // States for play button - implement
 if (playButton) {
     playButton.addEventListener("click", () => {
-        const iconElement = playButton.querySelector("");
+        const iconElement = playButton.querySelector("button");
         if (stats === "paused") {
             stats = "playing";
             if (iconElement) {
@@ -126,6 +138,7 @@ function playSong(song) {
     if (songArtistElement) {
         songArtistElement.textContent = song.artist;
     }
+    // Implement to get a cover image on our card
     // Image cover
     // if (coverImageElement) {
     //   if (song.album.coverUrl) {
@@ -150,4 +163,4 @@ if (coverImageElement) {
     if (currentSong.album.coverUrl) {
         coverImageElement.src = currentSong.album.coverUrl
     }
-}*/ 
+}*/
