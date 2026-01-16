@@ -153,11 +153,15 @@ header {
   box-shadow: 0px 0px 40px #24f2ef;
 }
 
+.hidden {
+  display: none;
+}
+
 .footer {
   justify-self: center;
   margin-top: 1rem;
   /* Docked to bottom of screen */
-  position:sticky;
+  position: sticky;
   bottom: 0;
   padding-inline: 5vw;
   padding-block: 0.5vw;

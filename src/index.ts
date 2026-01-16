@@ -102,25 +102,26 @@ playlist.forEach((song) => {
   const artist = document.createElement("p");
   artist.textContent = song.artist;
 
-  // Adds new elements to other elements - this works better than push when its a big array
+  // Adds new elements to the bottom of other elements
   card.append(coverImg, info);
   info.append(title, artist);
 
-  // Clicking a card gives the class .active to said card - implement it to apply to album cover instead
-  if (songListContainer) {
+  // Clicking a card gives the class .active to said img
+  if (songListContainer) { //  <-- class on main
     coverImg.addEventListener("click", () => {
       // use this to select a css class
       const currentActive = document.querySelector(".active");
 
       // Makes sure that the list exists, it wont crash if it doesesnt exist
       if (currentActive) {
+        // Removes class
         currentActive.classList.remove("active");
       }
-
+      // Adds class every click
       coverImg.classList.add("active");
       playSong(song);
     });
-
+    // Creates the albums with the songlist
     songListContainer.append(card);
   }
 });
@@ -154,10 +155,11 @@ if (playButton) {
 if (searchInput) {
   // (e) is a callback, e = event, usually used
   searchInput.addEventListener("input", (e) => {
-    const target = e.target as HTMLInputElement;
-    const searchTerm = target.value.toLowerCase(); // Makes searching not be case dependant
+    const target = e.target as HTMLInputElement; // Sends the signal - target becomes a reference to the search input
 
-    const allCard = document.querySelectorAll(".player-card");
+    const searchTerm = target.value.toLowerCase(); // Listens to the signal
+
+    const allCard = document.querySelectorAll(".player-card"); // Contains the values of created player cards
 
     allCard.forEach((card) => {
       const title = card.querySelector("h3")?.textContent?.toLowerCase();
@@ -171,7 +173,7 @@ if (searchInput) {
   });
 }
 
-// Functions
+// Functions - yet to be implemented
 function playSong(song: Song) {
   if (songTitleElement) {
     songTitleElement.textContent = song.title;
@@ -181,30 +183,9 @@ function playSong(song: Song) {
     songArtistElement.textContent = song.artist;
   }
 
-  // Implement to get a cover image on our card
-  // Image cover
-  // if (coverImageElement) {
-  //   if (song.album.coverUrl) {
-  //     coverImageElement.src = song.album.coverUrl;
-  //   }
-  // }
-}
-
-// By defining it Headers, we have access to all point-notations in the if statements
-/* OLD function logic
-const currentSong = playlist[0]
-
-
-if (songTitleElement) {
-    songTitleElement.textContent = currentSong.title
-}
-
-if (songArtistElement) {
-    songArtistElement.textContent=currentSong.artist
-}
-
-if (coverImageElement) {
-    if (currentSong.album.coverUrl) {
-        coverImageElement.src = currentSong.album.coverUrl
+  if (coverImageElement) {
+    if (song.album.coverUrl) {
+      coverImageElement.src = song.album.coverUrl;
     }
-}*/
+  }
+}
