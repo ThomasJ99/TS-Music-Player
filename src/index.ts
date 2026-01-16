@@ -87,11 +87,9 @@ playlist.forEach((song) => {
 
   const coverImg = document.createElement("img");
   coverImg.classList.add("album-cover");
-
+  // Logic to identify the optional type
   if (song.album.coverUrl) {
     coverImg.src = song.album.coverUrl;
-  } else {
-    console.log(song.album.coverUrl);
   }
 
   const info = document.createElement("div");
@@ -107,9 +105,9 @@ playlist.forEach((song) => {
   card.append(coverImg, info);
   info.append(title, artist);
 
-  // Clicking a card gives the class .active to said card
+  // Clicking a card gives the class .active to said card - implement it to apply to album cover instead
   if (songListContainer) {
-    card.addEventListener("click", () => {
+    coverImg.addEventListener("click", () => {
       // use this to select a css class
       const currentActive = document.querySelector(".active");
 
@@ -118,7 +116,7 @@ playlist.forEach((song) => {
         currentActive.classList.remove("active");
       }
 
-      card.classList.add("active");
+      coverImg.classList.add("active");
       playSong(song);
     });
 
@@ -151,7 +149,7 @@ if (playButton) {
 }
 
 // Search state - implement
-if (searchInput) {
+/*if (searchInput) {
   // (e) is a callback, e = event, usually used
   searchInput.addEventListener("input", (e) => {
     const target = e.target as HTMLInputElement;
@@ -169,7 +167,7 @@ if (searchInput) {
       }
     });
   });
-}
+}*/
 
 // Functions
 function playSong(song: Song) {

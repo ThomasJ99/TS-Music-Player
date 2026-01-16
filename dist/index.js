@@ -62,11 +62,9 @@ playlist.forEach((song) => {
     card.classList.add("player-card");
     const coverImg = document.createElement("img");
     coverImg.classList.add("album-cover");
+    // Logic to identify the optional type
     if (song.album.coverUrl) {
         coverImg.src = song.album.coverUrl;
-    }
-    else {
-        console.log(song.album.coverUrl);
     }
     const info = document.createElement("div");
     info.classList.add("artist-info");
@@ -77,16 +75,16 @@ playlist.forEach((song) => {
     // Adds new elements to other elements - this works better than push when its a big array
     card.append(coverImg, info);
     info.append(title, artist);
-    // Clicking a card gives the class .active to said card
+    // Clicking a card gives the class .active to said card - implement it to apply to album cover instead
     if (songListContainer) {
-        card.addEventListener("click", () => {
+        coverImg.addEventListener("click", () => {
             // use this to select a css class
             const currentActive = document.querySelector(".active");
             // Makes sure that the list exists, it wont crash if it doesesnt exist
             if (currentActive) {
                 currentActive.classList.remove("active");
             }
-            card.classList.add("active");
+            coverImg.classList.add("active");
             playSong(song);
         });
         songListContainer.append(card);
@@ -116,23 +114,25 @@ if (playButton) {
     });
 }
 // Search state - implement
-if (searchInput) {
-    // (e) is a callback, e = event, usually used
-    searchInput.addEventListener("input", (e) => {
-        const target = e.target;
-        const searchTerm = target.value.toLowerCase(); // Makes searching not be case dependant
-        const allCard = document.querySelectorAll(".player-card");
-        allCard.forEach((card) => {
-            const title = card.querySelector("h3")?.textContent?.toLowerCase();
-            if (title?.includes(searchTerm)) {
-                card.classList.remove("hidden"); // Need to create "hidden" in css
-            }
-            else {
-                card.classList.add("hidden");
-            }
-        });
+/*if (searchInput) {
+  // (e) is a callback, e = event, usually used
+  searchInput.addEventListener("input", (e) => {
+    const target = e.target as HTMLInputElement;
+    const searchTerm = target.value.toLowerCase(); // Makes searching not be case dependant
+
+    const allCard = document.querySelectorAll(".player-card");
+
+    allCard.forEach((card) => {
+      const title = card.querySelector("h3")?.textContent?.toLowerCase();
+
+      if (title?.includes(searchTerm)) {
+        card.classList.remove("hidden"); // Need to create "hidden" in css
+      } else {
+        card.classList.add("hidden");
+      }
     });
-}
+  });
+}*/
 // Functions
 function playSong(song) {
     if (songTitleElement) {
