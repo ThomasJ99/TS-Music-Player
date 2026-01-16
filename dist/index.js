@@ -58,6 +58,7 @@ const playButton = document.querySelector("#play-btn");
 let state = "paused";
 // Logic - creates new HTML <tags> with createElement and structure with append
 playlist.forEach((song) => {
+    // Creates html element and adds class to it
     const card = document.createElement("article");
     card.classList.add("player-card");
     const coverImg = document.createElement("img");
@@ -96,10 +97,10 @@ if (playButton) {
         if (state === "paused") {
             state = "playing";
             console.log("playing");
-            if (true) {
+            if (true) { // Look over statement, currently happens every time
                 console.log("add pause icon");
                 // Icon for pause
-                playButton.innerText = "||";
+                playButton.innerText = "⏸︎";
             }
         }
         else {
@@ -114,25 +115,23 @@ if (playButton) {
     });
 }
 // Search state - implement
-/*if (searchInput) {
-  // (e) is a callback, e = event, usually used
-  searchInput.addEventListener("input", (e) => {
-    const target = e.target as HTMLInputElement;
-    const searchTerm = target.value.toLowerCase(); // Makes searching not be case dependant
-
-    const allCard = document.querySelectorAll(".player-card");
-
-    allCard.forEach((card) => {
-      const title = card.querySelector("h3")?.textContent?.toLowerCase();
-
-      if (title?.includes(searchTerm)) {
-        card.classList.remove("hidden"); // Need to create "hidden" in css
-      } else {
-        card.classList.add("hidden");
-      }
+if (searchInput) {
+    // (e) is a callback, e = event, usually used
+    searchInput.addEventListener("input", (e) => {
+        const target = e.target;
+        const searchTerm = target.value.toLowerCase(); // Makes searching not be case dependant
+        const allCard = document.querySelectorAll(".player-card");
+        allCard.forEach((card) => {
+            const title = card.querySelector("h3")?.textContent?.toLowerCase();
+            if (title?.includes(searchTerm)) {
+                card.classList.remove("hidden"); // Need to create "hidden" in css
+            }
+            else {
+                card.classList.add("hidden");
+            }
+        });
     });
-  });
-}*/
+}
 // Functions
 function playSong(song) {
     if (songTitleElement) {
