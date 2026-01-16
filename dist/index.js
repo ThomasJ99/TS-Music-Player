@@ -10,7 +10,7 @@ const playlist = [
         album: {
             title: "Keep It Tucked",
             year: 2022,
-            coverUrl: "album-1.jpg",
+            coverUrl: "/assets/album-1.jpg",
         },
     },
     {
@@ -31,7 +31,7 @@ const playlist = [
         album: {
             title: "Aizo",
             year: 2026,
-            coverUrl: "album-3.jpg",
+            coverUrl: "/assets/album-3.jpg",
         },
     },
     {
@@ -42,7 +42,7 @@ const playlist = [
         album: {
             title: "Underdog",
             year: 2025,
-            coverUrl: "album-4.jpg",
+            coverUrl: "/assets/album-4.jpg",
         },
     },
 ];

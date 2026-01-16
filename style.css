@@ -97,7 +97,6 @@ h6 {
 }
 
 body {
-  /* background-color: hsl(0, 2%, 11%); */
   /* scanlines, would want to move these later */
   background: linear-gradient(to top, #000000, #000000, #1d1d1d, #1d1d1d);
   background-size: cover;
