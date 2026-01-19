@@ -110,7 +110,7 @@ function renderSongs() {
         }
     });
 }
-renderSongs(); // Needs fix
+renderSongs();
 // States for play button
 if (playButton) {
     playButton.addEventListener("click", () => {
@@ -177,28 +177,39 @@ function playSong(id) {
     }
 }
 // Modal
+// showModal opens modal & close() closes it with the click of a button
+// Names are linked to their respective button #id
 openBtn.addEventListener("click", () => {
     dialog.showModal();
 });
 closeBtn.addEventListener("click", () => {
     dialog.close();
 });
+//  
 addForm.addEventListener("submit", (e) => {
+    // Prevents the site from loading after we "submit" our form
+    // What preventDefault() does is that it can stop a sites standard behaviour for a event
     e.preventDefault();
+    // String values of these variables
     const title = titleInput.value;
     const artist = artistInput.value;
     const timeStr = durationInput.value; // ex "3:21"
-    //Minute, second - splits them and puts a : between
+    //Minute, second - splits them between the : giving us two different values, minStr, secStr
     const [minStr, secStr] = timeStr.split(":");
+    // Makes variables be numbers of our newly split strings
     const min = Number(minStr);
     const sec = Number(secStr);
+    // If any of the numbers arent numbers and after we alert, return
     if (isNaN(min) || isNaN(sec)) {
         durationInput.classList.add("error");
         alert("Wrong time format! Use min:sec");
         return;
     }
+    // Removes error class once we click submit and everything goes through
     durationInput.classList.remove("error");
+    // Converts our minute, seconds to only seconds
     const totalSeconds = min * 60 + sec;
+    // What our new song has to contain according to our interface
     const newSong = {
         id: Date.now(),
         title: title,
@@ -206,8 +217,10 @@ addForm.addEventListener("submit", (e) => {
         durationInSeconds: totalSeconds,
         album: { title: "Singel", year: 2024 },
     };
+    // Adds the new song to our playlist interface and plays the function its inside
     playlist.push(newSong);
     renderSongs();
+    // Needs comments
     addForm.reset();
     dialog.close();
 });
