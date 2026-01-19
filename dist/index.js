@@ -52,55 +52,73 @@ const songArtistElement = document.getElementById("song-artist");
 // as = type assertion - we force the element to be a specific type
 const coverImageElement = document.getElementById("cover-img");
 // Modern solution - new stuff
-const searchInput = document.querySelector("#search-input"); // Add later for a search bar
+const searchInput = document.querySelector("#search-input");
 const songListContainer = document.querySelector("#song-list-container");
 const playButton = document.querySelector("#play-btn");
-let state = "paused";
-// Logic - creates new HTML <tags> with createElement and structure with append
-playlist.forEach((song) => {
-    // Creates html element and adds class to it
-    const card = document.createElement("article");
-    card.classList.add("player-card");
-    const coverImg = document.createElement("img");
-    coverImg.classList.add("album-cover");
-    // Logic to identify the optional type
-    if (song.album.coverUrl) {
-        coverImg.src = song.album.coverUrl;
+const arrowButton = document.querySelector("arrow-btn"); // Might need revision
+let state = "paused"; // Need to figure out why I cant write status
+// Modal to add songs
+const dialog = document.querySelector("#add-song-dialog");
+const openBtn = document.querySelector("#open-modal-btn");
+const closeBtn = document.querySelector("#close-modal-btn");
+const addForm = document.querySelector("#add-song-form");
+const titleInput = document.querySelector("#title-input");
+const artistInput = document.querySelector("#artist-input");
+const durationInput = document.querySelector("#duration-input");
+function renderSongs() {
+    // Empties the list at the start to not create duplicates
+    if (songListContainer) {
+        songListContainer.replaceChildren();
     }
-    const info = document.createElement("div");
-    info.classList.add("artist-info");
-    const title = document.createElement("h3");
-    title.textContent = song.title;
-    const artist = document.createElement("p");
-    artist.textContent = song.artist;
-    // Adds new elements to the bottom of other elements
-    card.append(coverImg, info);
-    info.append(title, artist);
-    // Clicking a card gives the class .active to said img
-    if (songListContainer) { //  <-- class on main
-        coverImg.addEventListener("click", () => {
-            // use this to select a css class
-            const currentActive = document.querySelector(".active");
-            // Makes sure that the list exists, it wont crash if it doesesnt exist
-            if (currentActive) {
-                // Removes class
-                currentActive.classList.remove("active");
-            }
-            // Adds class every click
-            coverImg.classList.add("active");
-            playSong(song);
-        });
-        // Creates the albums with the songlist
-        songListContainer.append(card);
-    }
-});
+    // Logic - creates new HTML <tags> with createElement and structure with append
+    playlist.forEach(({ title, artist, id }) => {
+        // Creates html element and adds class to it
+        const card = document.createElement("article");
+        card.classList.add("player-card");
+        const coverImg = document.createElement("img");
+        coverImg.classList.add("album-cover");
+        // Logic to identify the optional type - needs fix
+        // if (id.album.coverUrl) {
+        //   coverImg.src = id.album.coverUrl;
+        // }
+        const info = document.createElement("div");
+        info.classList.add("artist-info");
+        const titleElement = document.createElement("h3");
+        titleElement.textContent = title;
+        const artistElement = document.createElement("p");
+        artistElement.textContent = artist;
+        // Adds new elements to the bottom of other elements
+        card.append(coverImg, info);
+        info.append(title, artist);
+        // Clicking a card gives the class .active to said img
+        if (songListContainer) {
+            //  <-- class on main
+            coverImg.addEventListener("click", () => {
+                // use this to select a css class
+                const currentActive = document.querySelector(".active");
+                // Makes sure that the list exists, it wont crash if it doesesnt exist
+                if (currentActive) {
+                    // Removes class
+                    currentActive.classList.remove("active");
+                }
+                // Adds class every click
+                coverImg.classList.add("active");
+                playSong(id);
+            });
+            // Creates the albums with the songlist
+            songListContainer.append(card);
+        }
+    });
+}
+//renderSongs(); // Needs fix
 // States for play button
 if (playButton) {
     playButton.addEventListener("click", () => {
         if (state === "paused") {
             state = "playing";
             console.log("playing");
-            if (true) { // Look over statement, currently happens every time
+            if (true) {
+                // Look over statement, currently happens every time
                 console.log("add pause icon");
                 // Icon for pause
                 playButton.innerText = "⏸︎";
@@ -117,7 +135,12 @@ if (playButton) {
         }
     });
 }
-// Search state - implement
+// Arrow button logic - implement - plan is to have them be +1 or -1 on the songs id, changing
+if (arrowButton) {
+    // logic
+    // Might need to loop through the two buttons with a forEach to start with
+}
+// Search input field
 if (searchInput) {
     // (e) is a callback, e = event, usually used
     searchInput.addEventListener("input", (e) => {
@@ -135,17 +158,56 @@ if (searchInput) {
         });
     });
 }
-// Functions - yet to be implemented
-function playSong(song) {
+// Functions - yet to be fully implemented
+function playSong(id) {
+    // find checks if you have something and if that matches something
+    const songToPlay = playlist.find((song) => song.id === id);
+    if (!songToPlay)
+        return; // If no id, leave
     if (songTitleElement) {
-        songTitleElement.textContent = song.title;
+        songTitleElement.textContent = songToPlay.title;
     }
     if (songArtistElement) {
-        songArtistElement.textContent = song.artist;
+        songArtistElement.textContent = songToPlay.artist;
     }
     if (coverImageElement) {
-        if (song.album.coverUrl) {
-            coverImageElement.src = song.album.coverUrl;
+        if (songToPlay.album.coverUrl) {
+            coverImageElement.src = songToPlay.album.coverUrl;
         }
     }
 }
+// Modal
+openBtn.addEventListener("click", () => {
+    dialog.showModal();
+});
+closeBtn.addEventListener("click", () => {
+    dialog.close();
+});
+addForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const title = titleInput.value;
+    const artist = artistInput.value;
+    const timeStr = durationInput.value; // ex "3:21"
+    //Minute, second - splits them and puts a : between
+    const [minStr, secStr] = timeStr.split(":");
+    const min = Number(minStr);
+    const sec = Number(secStr);
+    if (isNaN(min) || isNaN(sec)) {
+        durationInput.classList.add("error");
+        alert("Wrong time format! Use min:sec");
+        return;
+    }
+    durationInput.classList.remove("error");
+    const totalSeconds = min * 60 + sec;
+    const newSong = {
+        id: Date.now(),
+        title: title,
+        artist: artist,
+        durationInSeconds: totalSeconds,
+        album: { title: "Singel", year: 2024 },
+    };
+    playlist.push(newSong);
+    renderSongs();
+    addForm.reset();
+    dialog.close();
+});

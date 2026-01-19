@@ -88,15 +88,41 @@
         </svg>
         <h1>Thomas music!</h1>
         <p>This is some of the songs I'll be listening to in 2026</p>
-        <input id="search-input" class="" type="search">
+        <input id="search-input" class="" type="search" placeholder="Search..." aria-label="Search-song">
+        <button id="open-modal-btn" class="control-btn">
+          <span class="icon">+</span>
+        </button>
       </header>
 </main>
+
 <footer class="footer">
   <div>
-    <button class="control-btn">&#9198</button>
+    <button class="control-btn arrow-btn">&#9198</button>
     <button id="play-btn" class="control-btn play-btn">&#9658</button>
-    <button class="control-btn">&#9197</button>
+    <button class="control-btn arrow-btn">&#9197</button>
   </div>
 </footer>
+
+  <dialog id="add-song-dialog" class="">
+    <form id="add-song-form">
+      <h3>New song</h3>
+      <div class="input-group">
+        <label for="title-input">Title</label>
+        <input type="text" id="title-input" name="title-input" class="input-field" placeholder="ex. Borderline" required>
+      </div>
+      <div class="input-group">
+        <label for="artist-input">Artist</label>
+        <input type="text" id="artist-input" name="artist-input" class="input-field" placeholder="ex. Artist name" required>
+      </div>
+        <div class="input-group">
+        <label for="duration-input">Duration (min:sec)</label>
+        <input type="text" id="duration-input" name="duration-input" class="input-field" placeholder="ex. 3:21">
+      </div>
+      <div class="control-btn">
+        <button type="button" id="close-modal-btn" class="control-btn">Cancel</button>
+        <button type="submit" class="control-btn">Save</button>
+      </div>
+    </form>
+  </dialog>
   </body>
 </html>
