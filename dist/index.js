@@ -89,7 +89,7 @@ function renderSongs() {
         artistElement.textContent = artist;
         // Adds new elements to the bottom of other elements
         card.append(coverImg, info);
-        info.append(title, artist);
+        info.append(titleElement, artistElement);
         // Clicking a card gives the class .active to said img
         if (songListContainer) {
             //  <-- class on main

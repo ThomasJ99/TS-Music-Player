@@ -111,7 +111,7 @@ function renderSongs() {
     const coverImg = document.createElement("img");
     coverImg.classList.add("album-cover");
 
-   // Logic to identify the optional type - needs fix
+    // Logic to identify the optional type - needs fix
     if (album.coverUrl) {
       coverImg.src = album.coverUrl;
     }
@@ -127,7 +127,7 @@ function renderSongs() {
 
     // Adds new elements to the bottom of other elements
     card.append(coverImg, info);
-    info.append(title, artist);
+    info.append(titleElement, artistElement);
 
     // Clicking a card gives the class .active to said img
     if (songListContainer) {
@@ -264,12 +264,12 @@ addForm.addEventListener("submit", (e) => {
     title: title,
     artist: artist,
     durationInSeconds: totalSeconds,
-    album: {title: "Singel", year: 2024},
-  }
+    album: { title: "Singel", year: 2024 },
+  };
 
-  playlist.push(newSong)
-  renderSongs()
+  playlist.push(newSong);
+  renderSongs();
 
-  addForm.reset()
-  dialog.close()
+  addForm.reset();
+  dialog.close();
 });
