@@ -172,11 +172,17 @@ header {
 }
 
 .control-btn {
-  background-color: #f224a3;
+  background-color: aliceblue;
+  color: #f224a3;
   box-shadow: 0 0 10px #f224a3;
 
   padding: 0.75rem 1rem;
   font-size: 1.5rem;
+
+  &:hover {
+    background-color: #f224a3;
+    color: aliceblue;
+  }
 }
 
 .play-btn {
@@ -185,4 +191,32 @@ header {
   padding: 0.75rem 1.25rem;
   border-style: 1px solid 24f2ef;
   border-radius: 2rem;
+}
+
+/* Might move this into the input field instead so its apart of it */
+.modal-btn-open {
+  padding: 0.75rem 1.25rem;
+  border-radius: 10rem;
+
+  /* Potentially a new menu could be added here */
+  &:hover {
+  }
+}
+
+.modal-btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Styling below here is temporary */
+.search-input {
+  padding-block: 0.5rem;
+}
+
+.icon {
+  font-size: 1.25rem;
+}
+
+.error {
+  border: red 2px solid;
 }
