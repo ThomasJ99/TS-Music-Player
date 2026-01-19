@@ -71,16 +71,16 @@ function renderSongs() {
         songListContainer.replaceChildren();
     }
     // Logic - creates new HTML <tags> with createElement and structure with append
-    playlist.forEach(({ title, artist, id }) => {
+    playlist.forEach(({ title, artist, id, album }) => {
         // Creates html element and adds class to it
         const card = document.createElement("article");
         card.classList.add("player-card");
         const coverImg = document.createElement("img");
         coverImg.classList.add("album-cover");
         // Logic to identify the optional type - needs fix
-        // if (id.album.coverUrl) {
-        //   coverImg.src = id.album.coverUrl;
-        // }
+        if (album.coverUrl) {
+            coverImg.src = album.coverUrl;
+        }
         const info = document.createElement("div");
         info.classList.add("artist-info");
         const titleElement = document.createElement("h3");
@@ -110,7 +110,7 @@ function renderSongs() {
         }
     });
 }
-//renderSongs(); // Needs fix
+renderSongs(); // Needs fix
 // States for play button
 if (playButton) {
     playButton.addEventListener("click", () => {
