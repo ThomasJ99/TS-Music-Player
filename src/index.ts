@@ -110,22 +110,20 @@ if (songListContainer) {
     const target = e.target as HTMLElement;
     // closest() - bubbling event
     const card = target.closest(".player-card") as HTMLElement;
-    const image = card.querySelector("img") as HTMLElement;
-
     // If we dont click the img we get sent back
     if (!card) return;
 
     // console.log("You clicked", target);
     // console.log("Closest found", card);
-
+    
     const idStr = card.dataset.id;
     if (idStr) {
       const id = Number(idStr);
-
+      const image = card.querySelector("img") as HTMLElement;
+      
       const currentActive = document.querySelector(".active");
-
       if (currentActive) currentActive.classList.remove("active");
-
+      
       image.classList.add("active");
       playSong(id);
     }

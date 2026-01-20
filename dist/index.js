@@ -77,7 +77,6 @@ if (songListContainer) {
         const target = e.target;
         // closest() - bubbling event
         const card = target.closest(".player-card");
-        const image = card.querySelector("img");
         // If we dont click the img we get sent back
         if (!card)
             return;
@@ -86,6 +85,7 @@ if (songListContainer) {
         const idStr = card.dataset.id;
         if (idStr) {
             const id = Number(idStr);
+            const image = card.querySelector("img");
             const currentActive = document.querySelector(".active");
             if (currentActive)
                 currentActive.classList.remove("active");
