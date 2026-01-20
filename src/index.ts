@@ -239,7 +239,7 @@ closeBtn.addEventListener("click", () => {
   dialog.close();
 });
 
-//  
+// SPA - Single Page Application - modern, popular solution
 addForm.addEventListener("submit", (e) => {
   // Prevents the site from loading after we "submit" our form
   // What preventDefault() does is that it can stop a sites standard behaviour for a event
