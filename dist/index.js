@@ -65,6 +65,35 @@ const addForm = document.querySelector("#add-song-form");
 const titleInput = document.querySelector("#title-input");
 const artistInput = document.querySelector("#artist-input");
 const durationInput = document.querySelector("#duration-input");
+// const renderSongs = () => {
+//   if (songListContainer) {
+//     songListContainer.replaceChildren()
+//   }
+// }
+if (songListContainer) {
+    songListContainer.addEventListener("click", (e) => {
+        // console.log(`You clicked on the container ${e.target}`)
+        // console.log("You clicked", e.target);
+        const target = e.target;
+        // closest() - bubbling event
+        const card = target.closest(".player-card");
+        const image = card.querySelector("img");
+        // If we dont click the img we get sent back
+        if (!card)
+            return;
+        // console.log("You clicked", target);
+        // console.log("Closest found", card);
+        const idStr = card.dataset.id;
+        if (idStr) {
+            const id = Number(idStr);
+            const currentActive = document.querySelector(".active");
+            if (currentActive)
+                currentActive.classList.remove("active");
+            image.classList.add("active");
+            playSong(id);
+        }
+    });
+}
 function renderSongs() {
     // Empties the list at the start to not create duplicates
     if (songListContainer) {
@@ -75,6 +104,8 @@ function renderSongs() {
         // Creates html element and adds class to it
         const card = document.createElement("article");
         card.classList.add("player-card");
+        // Gives each card a unique data-id
+        card.dataset.id = id.toString();
         const coverImg = document.createElement("img");
         coverImg.classList.add("album-cover");
         // Logic to identify the optional type - needs fix
@@ -90,21 +121,7 @@ function renderSongs() {
         // Adds new elements to the bottom of other elements
         card.append(coverImg, info);
         info.append(titleElement, artistElement);
-        // Clicking a card gives the class .active to said img
         if (songListContainer) {
-            //  <-- class on main
-            coverImg.addEventListener("click", () => {
-                // use this to select a css class
-                const currentActive = document.querySelector(".active");
-                // Makes sure that the list exists, it wont crash if it doesesnt exist
-                if (currentActive) {
-                    // Removes class
-                    currentActive.classList.remove("active");
-                }
-                // Adds class every click
-                coverImg.classList.add("active");
-                playSong(id);
-            });
             // Creates the albums with the songlist
             songListContainer.append(card);
         }
