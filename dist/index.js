@@ -65,11 +65,6 @@ const addForm = document.querySelector("#add-song-form");
 const titleInput = document.querySelector("#title-input");
 const artistInput = document.querySelector("#artist-input");
 const durationInput = document.querySelector("#duration-input");
-// const renderSongs = () => {
-//   if (songListContainer) {
-//     songListContainer.replaceChildren()
-//   }
-// }
 if (songListContainer) {
     songListContainer.addEventListener("click", (e) => {
         // console.log(`You clicked on the container ${e.target}`)
@@ -94,40 +89,6 @@ if (songListContainer) {
         }
     });
 }
-function renderSongs() {
-    // Empties the list at the start to not create duplicates
-    if (songListContainer) {
-        songListContainer.replaceChildren();
-    }
-    // Logic - creates new HTML <tags> with createElement and structure with append
-    playlist.forEach(({ title, artist, id, album }) => {
-        // Creates html element and adds class to it
-        const card = document.createElement("article");
-        card.classList.add("player-card");
-        // Gives each card a unique data-id
-        card.dataset.id = id.toString();
-        const coverImg = document.createElement("img");
-        coverImg.classList.add("album-cover");
-        // Logic to identify the optional type - needs fix
-        if (album.coverUrl) {
-            coverImg.src = album.coverUrl;
-        }
-        const info = document.createElement("div");
-        info.classList.add("artist-info");
-        const titleElement = document.createElement("h3");
-        titleElement.textContent = title;
-        const artistElement = document.createElement("p");
-        artistElement.textContent = artist;
-        // Adds new elements to the bottom of other elements
-        card.append(coverImg, info);
-        info.append(titleElement, artistElement);
-        if (songListContainer) {
-            // Creates the albums with the songlist
-            songListContainer.append(card);
-        }
-    });
-}
-renderSongs();
 // States for play button
 if (playButton) {
     playButton.addEventListener("click", () => {
@@ -175,6 +136,39 @@ if (searchInput) {
         });
     });
 }
+function renderSongs() {
+    // Empties the list at the start to not create duplicates
+    if (songListContainer) {
+        songListContainer.replaceChildren();
+    }
+    // Logic - creates new HTML <tags> with createElement and structure with append
+    playlist.forEach(({ title, artist, id, album }) => {
+        // Creates html element and adds class to it
+        const card = document.createElement("article");
+        card.classList.add("player-card");
+        // Gives each card a unique data-id
+        card.dataset.id = id.toString();
+        const coverImg = document.createElement("img");
+        coverImg.classList.add("album-cover");
+        // Logic to identify the optional type - needs fix
+        if (album.coverUrl) {
+            coverImg.src = album.coverUrl;
+        }
+        const info = document.createElement("div");
+        info.classList.add("artist-info");
+        const titleElement = document.createElement("h3");
+        titleElement.textContent = title;
+        const artistElement = document.createElement("p");
+        artistElement.textContent = artist;
+        // Adds new elements to the bottom of other elements
+        card.append(coverImg, info);
+        info.append(titleElement, artistElement);
+        if (songListContainer) {
+            // Creates the albums with the songlist
+            songListContainer.append(card);
+        }
+    });
+}
 // Functions - yet to be fully implemented
 function playSong(id) {
     // find checks if you have something and if that matches something
@@ -193,6 +187,19 @@ function playSong(id) {
         }
     }
 }
+// Local storage & loading
+const saveToLocalStorage = () => {
+    const jsonString = JSON.stringify(playlist);
+    localStorage.setItem("playlistData", jsonString);
+};
+const loadFromLocalStorage = () => {
+    const storedData = localStorage.getItem("playlistData");
+    if (storedData) {
+        const parsedData = JSON.parse(storedData);
+        playlist.length = 0;
+        playlist.push(...parsedData);
+    }
+};
 // Modal
 // showModal opens modal & close() closes it with the click of a button
 // Names are linked to their respective button #id
@@ -236,8 +243,13 @@ addForm.addEventListener("submit", (e) => {
     };
     // Adds the new song to our playlist interface and plays the function its inside
     playlist.push(newSong);
+    saveToLocalStorage();
     renderSongs();
-    // Needs comments
+    // reset removes content from modal after its submitted
     addForm.reset();
+    // closes the modal
     dialog.close();
 });
+// Loads our songs at start
+loadFromLocalStorage();
+renderSongs();
