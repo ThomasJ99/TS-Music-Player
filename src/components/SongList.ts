@@ -1,5 +1,6 @@
 import type { Song } from "../models/Song.js";
 
+// containerId is the id of my song list container which is my main
 export function renderSongs(containerId: string, songs: Song[]) {
   const container = document.getElementById(containerId);
 

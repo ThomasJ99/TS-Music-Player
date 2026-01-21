@@ -1,50 +1,6 @@
 import { renderSongs } from "./components/SongList.js";
-// Mock data - contains songs "data" using the above interfaces
-const playlist = [
-    {
-        id: 1,
-        title: "Keep It Tucked",
-        artist: "ThxSoMch",
-        durationInSeconds: 174,
-        album: {
-            title: "Keep It Tucked",
-            year: 2022,
-            coverUrl: "/assets/album-1.jpg",
-        },
-    },
-    {
-        id: 2,
-        title: "Tonight",
-        artist: "PinkPantheress",
-        durationInSeconds: 175,
-        album: {
-            title: "Fancy That",
-            year: 2025,
-        },
-    },
-    {
-        id: 3,
-        title: "Aizo",
-        artist: "King Gnu",
-        durationInSeconds: 216,
-        album: {
-            title: "Aizo",
-            year: 2026,
-            coverUrl: "/assets/album-3.jpg",
-        },
-    },
-    {
-        id: 4,
-        title: "Underdog",
-        artist: "Eve",
-        durationInSeconds: 194,
-        album: {
-            title: "Underdog",
-            year: 2025,
-            coverUrl: "/assets/album-4.jpg",
-        },
-    },
-];
+import { saveSongs, loadSongs } from "./utils/storage.js";
+import { getPlaylist } from "./services/SongService.js";
 // Variables
 const songTitleElement = document.getElementById("song-title");
 const songArtistElement = document.getElementById("song-artist");
@@ -136,7 +92,7 @@ if (searchInput) {
         });
     });
 }
-// Functions - yet to be fully implemented
+// Functions - yet to be fully implemented - should be moved out ---------
 function playSong(id) {
     // find checks if you have something and if that matches something
     const songToPlay = playlist.find((song) => song.id === id);
@@ -154,19 +110,19 @@ function playSong(id) {
         }
     }
 }
-// Local storage & loading
-const saveToLocalStorage = () => {
-    const jsonString = JSON.stringify(playlist);
-    localStorage.setItem("playlistData", jsonString);
-};
-const loadFromLocalStorage = () => {
-    const storedData = localStorage.getItem("playlistData");
-    if (storedData) {
-        const parsedData = JSON.parse(storedData);
-        playlist.length = 0;
-        playlist.push(...parsedData);
-    }
-};
+// Initializing Local storage & loading
+// Empty list at the start, good if we dont know if our user is new or recurring
+const playlist = [];
+const apiSongs = getPlaylist();
+const storedSongs = loadSongs();
+if (storedSongs.length > 0) {
+    playlist.push(...storedSongs);
+}
+else {
+    playlist.push(...apiSongs);
+    // Saves current songs
+    saveSongs(playlist);
+}
 // Modal
 // showModal opens modal & close() closes it with the click of a button
 // Names are linked to their respective button #id
@@ -210,7 +166,7 @@ addForm.addEventListener("submit", (e) => {
     };
     // Adds the new song to our playlist interface and plays the function its inside
     playlist.push(newSong);
-    saveToLocalStorage();
+    saveSongs(playlist);
     renderSongs("song-list-container", playlist);
     // reset removes content from modal after its submitted
     addForm.reset();
@@ -218,5 +174,5 @@ addForm.addEventListener("submit", (e) => {
     dialog.close();
 });
 // Loads our songs at start
-loadFromLocalStorage();
+loadSongs();
 renderSongs("song-list-container", playlist);
