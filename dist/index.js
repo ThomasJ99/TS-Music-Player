@@ -1,4 +1,6 @@
 "use strict";
+// Type imports at the top - helps others know what file works with
+// import type { Song} from "./models/Song.js"
 // Interfaces & type
 // Mock data - contains songs "data" using the above interfaces
 const playlist = [
@@ -65,6 +67,7 @@ const addForm = document.querySelector("#add-song-form");
 const titleInput = document.querySelector("#title-input");
 const artistInput = document.querySelector("#artist-input");
 const durationInput = document.querySelector("#duration-input");
+// New event for active album
 if (songListContainer) {
     songListContainer.addEventListener("click", (e) => {
         // console.log(`You clicked on the container ${e.target}`)

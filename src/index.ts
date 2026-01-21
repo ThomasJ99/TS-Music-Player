@@ -1,4 +1,11 @@
+// Type imports at the top - helps others know what file works with
+// import type { Song} from "./models/Song.js"
 // Interfaces & type
+
+// Models - interfaces & definitions
+// services - Our data
+// utils - General/reusable logic, like storage
+// components -
 
 interface Song {
   id: number;
@@ -97,6 +104,7 @@ const durationInput = document.querySelector(
   "#duration-input",
 ) as HTMLInputElement;
 
+// New event for active album
 if (songListContainer) {
   songListContainer.addEventListener("click", (e) => {
     // console.log(`You clicked on the container ${e.target}`)
