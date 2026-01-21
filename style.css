@@ -183,6 +183,10 @@ header {
     background-color: aliceblue;
     color: #f224a3;
   }
+
+  &:active {
+    background-color: rgb(226, 237, 249);
+  }
 }
 
 .play-btn {
