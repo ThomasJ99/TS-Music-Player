@@ -1,26 +1,10 @@
 // Type imports at the top - helps others know what file works with
-// import type { Song} from "./models/Song.js"
-// Interfaces & type
+import type { Song } from "./models/Song.js";
 
-// Models - interfaces & definitions
-// services - Our data
-// utils - General/reusable logic, like storage
-// components -
-
-interface Song {
-  id: number;
-  title: string;
-  artist: string;
-  durationInSeconds: number;
-  // Inherits the Album interface, allowing us to access its content
-  album: Album;
-}
-
-interface Album {
-  title: string;
-  year: number;
-  coverUrl?: string;
-}
+// Models - interfaces & definitions - (Your interfaces/types – "The blueprints")
+// services - Our data - (Handles your data/fetching – "The warehouse")
+// utils - General/reusable logic, like storage - (Small helper functions – "The tools")
+// components - (Functions that create HTML – "The painters")
 
 type PlayerStatus = "playing" | "paused" | "stopped";
 
@@ -88,7 +72,7 @@ const songListContainer = document.querySelector("#song-list-container");
 const playButton = document.querySelector("#play-btn") as HTMLButtonElement;
 const arrowButton = document.querySelector("arrow-btn") as HTMLButtonElement; // Might need revision
 
-let state: PlayerStatus = "paused"; // Need to figure out why I cant write status
+let state: PlayerStatus = "paused"; // Need to figure out why I cant write status. answer: old deprecated word
 
 // Modal to add songs
 const dialog = document.querySelector("#add-song-dialog") as HTMLDialogElement;

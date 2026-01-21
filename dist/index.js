@@ -1,7 +1,3 @@
-"use strict";
-// Type imports at the top - helps others know what file works with
-// import type { Song} from "./models/Song.js"
-// Interfaces & type
 // Mock data - contains songs "data" using the above interfaces
 const playlist = [
     {
@@ -58,7 +54,7 @@ const searchInput = document.querySelector("#search-input");
 const songListContainer = document.querySelector("#song-list-container");
 const playButton = document.querySelector("#play-btn");
 const arrowButton = document.querySelector("arrow-btn"); // Might need revision
-let state = "paused"; // Need to figure out why I cant write status
+let state = "paused"; // Need to figure out why I cant write status. answer: old deprecated word
 // Modal to add songs
 const dialog = document.querySelector("#add-song-dialog");
 const openBtn = document.querySelector("#open-modal-btn");
@@ -256,3 +252,4 @@ addForm.addEventListener("submit", (e) => {
 // Loads our songs at start
 loadFromLocalStorage();
 renderSongs();
+export {};
