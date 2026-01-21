@@ -11,7 +11,7 @@ export const saveSongs = (songs: Song[]) => {
 };
 
 // Loading
-export const loadSongs = () => {
+export const loadSongs = (): Song[] => {
   const storedData = localStorage.getItem(storage_Key);
 
   // If theres nothing in our local storage, return empty list
