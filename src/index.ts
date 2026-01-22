@@ -25,7 +25,7 @@ const songListContainer = document.querySelector("#song-list-container");
 const playButton = document.querySelector("#play-btn") as HTMLButtonElement;
 const arrowButton = document.querySelector("arrow-btn") as HTMLButtonElement; // Might need revision
 
-let state: PlayerStatus = "paused"; // Need to figure out why I cant write status. answer: old deprecated word
+let state: PlayerStatus = "paused"; // Need to figure out why I cant write status as a variable name. answer: old deprecated word
 
 // Modal to add songs
 const dialog = document.querySelector("#add-song-dialog") as HTMLDialogElement;
@@ -40,6 +40,23 @@ const artistInput = document.querySelector("#artist-input") as HTMLInputElement;
 const durationInput = document.querySelector(
   "#duration-input",
 ) as HTMLInputElement;
+
+// Initializing Local storage & loading
+// Empty list at the start, good if we dont know if our user is new or recurring
+const playlist: Song[] = [];
+// Remove old statements below, redo with async and try catch ------
+
+const apiSongs = getPlaylist();
+const storedSongs = loadSongs();
+
+if (storedSongs.length > 0) {
+  playlist.push(...storedSongs);
+} else {
+  playlist.push(...apiSongs);
+
+  // Saves current songs
+  saveSongs(playlist);
+}
 
 // New event for active album
 if (songListContainer) {
@@ -123,7 +140,7 @@ if (searchInput) {
   });
 }
 
-// Functions - yet to be fully implemented - should be moved out ---------
+// Functions - yet to be fully implemented - should be moved out to playerservice alongside status and states ---------
 function playSong(id: number) {
   // find checks if you have something and if that matches something
   const songToPlay = playlist.find((song) => song.id === id);
@@ -145,20 +162,7 @@ function playSong(id: number) {
   }
 }
 
-// Initializing Local storage & loading
-// Empty list at the start, good if we dont know if our user is new or recurring
-const playlist: Song[] = [];
-const apiSongs = getPlaylist();
-const storedSongs = loadSongs();
 
-if (storedSongs.length > 0) {
-  playlist.push(...storedSongs);
-} else {
-  playlist.push(...apiSongs);
-
-  // Saves current songs
-  saveSongs(playlist);
-}
 
 // Modal
 // showModal opens modal & close() closes it with the click of a button

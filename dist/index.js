@@ -11,7 +11,7 @@ const searchInput = document.querySelector("#search-input");
 const songListContainer = document.querySelector("#song-list-container");
 const playButton = document.querySelector("#play-btn");
 const arrowButton = document.querySelector("arrow-btn"); // Might need revision
-let state = "paused"; // Need to figure out why I cant write status. answer: old deprecated word
+let state = "paused"; // Need to figure out why I cant write status as a variable name. answer: old deprecated word
 // Modal to add songs
 const dialog = document.querySelector("#add-song-dialog");
 const openBtn = document.querySelector("#open-modal-btn");
@@ -20,6 +20,20 @@ const addForm = document.querySelector("#add-song-form");
 const titleInput = document.querySelector("#title-input");
 const artistInput = document.querySelector("#artist-input");
 const durationInput = document.querySelector("#duration-input");
+// Initializing Local storage & loading
+// Empty list at the start, good if we dont know if our user is new or recurring
+const playlist = [];
+// Remove old statements below, redo with async and try catch ------
+const apiSongs = getPlaylist();
+const storedSongs = loadSongs();
+if (storedSongs.length > 0) {
+    playlist.push(...storedSongs);
+}
+else {
+    playlist.push(...apiSongs);
+    // Saves current songs
+    saveSongs(playlist);
+}
 // New event for active album
 if (songListContainer) {
     songListContainer.addEventListener("click", (e) => {
@@ -92,7 +106,7 @@ if (searchInput) {
         });
     });
 }
-// Functions - yet to be fully implemented - should be moved out ---------
+// Functions - yet to be fully implemented - should be moved out to playerservice alongside status and states ---------
 function playSong(id) {
     // find checks if you have something and if that matches something
     const songToPlay = playlist.find((song) => song.id === id);
@@ -109,19 +123,6 @@ function playSong(id) {
             coverImageElement.src = songToPlay.album.coverUrl;
         }
     }
-}
-// Initializing Local storage & loading
-// Empty list at the start, good if we dont know if our user is new or recurring
-const playlist = [];
-const apiSongs = getPlaylist();
-const storedSongs = loadSongs();
-if (storedSongs.length > 0) {
-    playlist.push(...storedSongs);
-}
-else {
-    playlist.push(...apiSongs);
-    // Saves current songs
-    saveSongs(playlist);
 }
 // Modal
 // showModal opens modal & close() closes it with the click of a button

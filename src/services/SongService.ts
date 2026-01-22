@@ -60,3 +60,5 @@ const playlist: Song[] = [
 export function getPlaylist(): Song[] {
   return [...playlist];
 }
+
+// Fetch / Await
