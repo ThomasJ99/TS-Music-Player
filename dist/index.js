@@ -2,6 +2,7 @@ import { renderSongs } from "./components/SongList.js";
 import { saveSongs, loadSongs } from "./utils/storage.js";
 import { getPlaylist } from "./services/SongService.js";
 import { playSong } from "./services/PlayerService.js";
+import { newSongTime } from "./utils/SongTime.js";
 // models - interfaces & definitions - (Your interfaces/types – "The blueprints")
 // services - Our data - (Handles your data/fetching – "The warehouse")
 // utils - General/reusable logic, like storage - (Small helper functions – "The tools")
@@ -40,7 +41,7 @@ else {
     // Saves current songs
     saveSongs(playlist);
 }
-let state = "paused"; // Need to figure out why I cant write status as a variable name. answer: old deprecated word
+let state = "stopped"; // Need to figure out why I cant write status as a variable name. answer: old deprecated word
 // New event for active album
 if (songListContainer) {
     songListContainer.addEventListener("click", (e) => {
@@ -69,25 +70,27 @@ if (songListContainer) {
 // States for play button
 if (playButton) {
     playButton.addEventListener("click", () => {
-        if (state === "paused") {
-            state = "playing";
-            console.log("playing");
-            if (true) {
-                // Look over statement, currently happens every time
-                console.log("add pause icon");
-                // Icon for pause
-                playButton.innerText = "⏸︎";
-            }
-        }
-        else {
+        if (state === "playing") {
             state = "paused";
-            console.log("paused");
         }
-        if (state === "paused") {
-            // Icon for play
-            console.log("add play button");
-            playButton.innerHTML = "&#9658";
-        }
+        // if (state === "paused") {
+        //   state = "playing";
+        //   console.log("playing");
+        //   if (true) {
+        //     // Look over statement, currently happens every time
+        //     console.log("add pause icon");
+        //     // Icon for pause
+        //     playButton.innerText = "⏸︎";
+        //   }
+        // } else {
+        //   state = "paused";
+        //   console.log("paused");
+        // }
+        // if (state === "paused") {
+        //   // Icon for play
+        //   console.log("add play button");
+        //   playButton.innerHTML = "&#9658";
+        // }
     });
 }
 // Arrow button logic - implement - plan is to have them be +1 or -1 on the songs id, changing
@@ -131,21 +134,13 @@ addForm.addEventListener("submit", (e) => {
     const title = titleInput.value;
     const artist = artistInput.value;
     const timeStr = durationInput.value; // ex "3:21"
-    //Minute, second - splits them between the : giving us two different values, minStr, secStr
-    const [minStr, secStr] = timeStr.split(":");
-    // Makes variables be numbers of our newly split strings
-    const min = Number(minStr);
-    const sec = Number(secStr);
-    // If any of the numbers arent numbers and after we alert, return
-    if (isNaN(min) || isNaN(sec)) {
+    const totalSeconds = newSongTime(timeStr, durationInput);
+    // Safety check if its null
+    if (!totalSeconds) {
         durationInput.classList.add("error");
         alert("Wrong time format! Use min:sec");
         return;
     }
-    // Removes error class once we click submit and everything goes through
-    durationInput.classList.remove("error");
-    // Converts our minute, seconds to only seconds
-    const totalSeconds = min * 60 + sec;
     // What our new song has to contain according to our interface
     const newSong = {
         id: Date.now(),
