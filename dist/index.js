@@ -1,17 +1,23 @@
 import { renderSongs } from "./components/SongList.js";
 import { saveSongs, loadSongs } from "./utils/storage.js";
 import { getPlaylist } from "./services/SongService.js";
+import { playSong } from "./services/PlayerService.js";
+// models - interfaces & definitions - (Your interfaces/types – "The blueprints")
+// services - Our data - (Handles your data/fetching – "The warehouse")
+// utils - General/reusable logic, like storage - (Small helper functions – "The tools")
+// components - (Functions that create HTML – "The painters")
 // Variables
 const songTitleElement = document.getElementById("song-title");
 const songArtistElement = document.getElementById("song-artist");
 // as = type assertion - we force the element to be a specific type
-const coverImageElement = document.getElementById("cover-img");
+// const coverImageElement = document.getElementById(
+//   "cover-img",
+// ) as HTMLImageElement;
 // Modern solution - new stuff
 const searchInput = document.querySelector("#search-input");
 const songListContainer = document.querySelector("#song-list-container");
 const playButton = document.querySelector("#play-btn");
 const arrowButton = document.querySelector("arrow-btn"); // Might need revision
-let state = "paused"; // Need to figure out why I cant write status as a variable name. answer: old deprecated word
 // Modal to add songs
 const dialog = document.querySelector("#add-song-dialog");
 const openBtn = document.querySelector("#open-modal-btn");
@@ -34,6 +40,7 @@ else {
     // Saves current songs
     saveSongs(playlist);
 }
+let state = "paused"; // Need to figure out why I cant write status as a variable name. answer: old deprecated word
 // New event for active album
 if (songListContainer) {
     songListContainer.addEventListener("click", (e) => {
@@ -55,7 +62,7 @@ if (songListContainer) {
             if (currentActive)
                 currentActive.classList.remove("active");
             image.classList.add("active");
-            playSong(id);
+            playSong(id, playlist, songTitleElement, songArtistElement);
         }
     });
 }
@@ -105,24 +112,6 @@ if (searchInput) {
             }
         });
     });
-}
-// Functions - yet to be fully implemented - should be moved out to playerservice alongside status and states ---------
-function playSong(id) {
-    // find checks if you have something and if that matches something
-    const songToPlay = playlist.find((song) => song.id === id);
-    if (!songToPlay)
-        return; // If no id, leave
-    if (songTitleElement) {
-        songTitleElement.textContent = songToPlay.title;
-    }
-    if (songArtistElement) {
-        songArtistElement.textContent = songToPlay.artist;
-    }
-    if (coverImageElement) {
-        if (songToPlay.album.coverUrl) {
-            coverImageElement.src = songToPlay.album.coverUrl;
-        }
-    }
 }
 // Modal
 // showModal opens modal & close() closes it with the click of a button
