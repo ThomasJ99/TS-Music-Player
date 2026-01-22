@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -87,45 +87,72 @@
       </svg>
       <h1>Thomas music!</h1>
       <p>This is some of the songs I'll be listening to in 2026</p>
-      <input id="search-input" class="search-input" type="search" placeholder="Search..." aria-label="Search-song">
+      <input
+        id="search-input"
+        class="search-input"
+        type="search"
+        placeholder="Search..."
+        aria-label="Search-song"
+      />
       <button id="open-modal-btn" class="modal-btn-open">
         <span class="icon">+</span>
       </button>
     </header>
-    <main id="song-list-container" class="main-content flow">
-</main>
+    <main id="song-list-container" class="main-content flow"></main>
 
-<footer class="footer">
-  <div>
-    <button class="control-btn arrow-btn">&#9198</button>
-    <button id="play-btn" class="control-btn play-btn">&#9658</button>
-    <button class="control-btn arrow-btn">&#9197</button>
-  </div>
-</footer>
-
-  <dialog id="add-song-dialog" class="">
-    <form id="add-song-form" class="flow">
-      <h3>New song</h3>
-      <div class="input-group">
-        <label for="title-input" class="label">Title:</label>
-        <input type="text" id="title-input" name="title-input-field" class="input-field" placeholder="ex.Borderline" required>
+    <footer class="footer">
+      <div>
+        <button class="control-btn arrow-btn">⏮︎</button>
+        <button id="play-btn" class="control-btn play-btn">⏵︎</button>
+        <button class="control-btn arrow-btn">⏭︎</button>
       </div>
+    </footer>
 
-      <div class="input-group">
-        <label for="artist-input" class="label-artist">Artist:</label>
-        <input type="text" id="artist-input" name="artist-input-field" class="input-field" placeholder="ex.Tame Impala" required>
-      </div>
+    <dialog id="add-song-dialog" class="">
+      <form id="add-song-form" class="flow">
+        <h3>New song</h3>
+        <div class="input-group">
+          <label for="title-input" class="label">Title:</label>
+          <input
+            type="text"
+            id="title-input"
+            name="title-input-field"
+            class="input-field"
+            placeholder="ex.Borderline"
+            required
+          />
+        </div>
 
         <div class="input-group">
-        <label for="duration-input" class="label">Duration:</label>
-        <input type="text" id="duration-input" name="duration-input-field" class="input-field" placeholder="ex. 3:21">
-      </div>
+          <label for="artist-input" class="label-artist">Artist:</label>
+          <input
+            type="text"
+            id="artist-input"
+            name="artist-input-field"
+            class="input-field"
+            placeholder="ex.Tame Impala"
+            required
+          />
+        </div>
 
-      <div class="modal-btns">
-        <button type="button" id="close-modal-btn" class="control-btn">Cancel</button>
-        <button type="submit" class="control-btn">Save</button>
-      </div>
-    </form>
-  </dialog>
+        <div class="input-group">
+          <label for="duration-input" class="label">Duration:</label>
+          <input
+            type="text"
+            id="duration-input"
+            name="duration-input-field"
+            class="input-field"
+            placeholder="ex. 3:21"
+          />
+        </div>
+
+        <div class="modal-btns">
+          <button type="button" id="close-modal-btn" class="control-btn">
+            Cancel
+          </button>
+          <button type="submit" class="control-btn">Save</button>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>

@@ -83,6 +83,10 @@ if (songListContainer) {
       if (currentActive) currentActive.classList.remove("active");
 
       image.classList.add("active");
+
+      state = "stopped";
+      playButton.innerHTML = "&#9658";
+
       playSong(id, playlist, songTitleElement, songArtistElement);
     }
   });
@@ -93,26 +97,13 @@ if (playButton) {
   playButton.addEventListener("click", () => {
     if (state === "playing") {
       state = "paused";
+      // Icon for play
+      playButton.innerHTML = "⏵︎";
+    } else {
+      state = "playing";
+      // Icon for pause
+      playButton.innerText = "⏸︎";
     }
-    // if (state === "paused") {
-    //   state = "playing";
-    //   console.log("playing");
-
-    //   if (true) {
-    //     // Look over statement, currently happens every time
-    //     console.log("add pause icon");
-    //     // Icon for pause
-    //     playButton.innerText = "⏸︎";
-    //   }
-    // } else {
-    //   state = "paused";
-    //   console.log("paused");
-    // }
-    // if (state === "paused") {
-    //   // Icon for play
-    //   console.log("add play button");
-    //   playButton.innerHTML = "&#9658";
-    // }
   });
 }
 
