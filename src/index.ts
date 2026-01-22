@@ -158,7 +158,7 @@ addForm.addEventListener("submit", (e) => {
   const timeStr = durationInput.value; // ex "3:21"
 
   const totalSeconds = newSongTime(timeStr, durationInput);
-  // Safety check if its null
+  // Safety check if its 0
   if (!totalSeconds) {
     durationInput.classList.add("error");
     alert("Wrong time format! Use min:sec");
