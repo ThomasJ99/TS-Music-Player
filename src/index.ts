@@ -6,20 +6,19 @@ import { getPlaylist } from "./services/SongService.js";
 import { playSong } from "./services/PlayerService.js";
 import { newSongTime } from "./utils/SongTime.js";
 
+/* --- Folder structure ---
 // models - interfaces & definitions - (Your interfaces/types – "The blueprints")
 // services - Our data - (Handles your data/fetching – "The warehouse")
 // utils - General/reusable logic, like storage - (Small helper functions – "The tools")
-// components - (Functions that create HTML – "The painters")
+// components - (Functions that create HTML – "The painters") - pascal
+*/
 
 // Variables
 const songTitleElement = document.getElementById("song-title");
 const songArtistElement = document.getElementById("song-artist");
-// as = type assertion - we force the element to be a specific type
-// const coverImageElement = document.getElementById(
-//   "cover-img",
-// ) as HTMLImageElement;
 
 // Modern solution - new stuff
+// as = type assertion - we force the element to be a specific type
 const searchInput = document.querySelector("#search-input") as HTMLInputElement;
 const songListContainer = document.querySelector("#song-list-container");
 const playButton = document.querySelector("#play-btn") as HTMLButtonElement;
@@ -57,22 +56,16 @@ if (storedSongs.length > 0) {
 }
 
 type PlayerStatus = "playing" | "paused" | "stopped";
-let state: PlayerStatus = "stopped"; // Need to figure out why I cant write status as a variable name. answer: old deprecated word
+let state: PlayerStatus = "stopped"; // Need to figure out why I cant write status as a variable name. Answer: old deprecated word
 
 // New event for active album
 if (songListContainer) {
   songListContainer.addEventListener("click", (e) => {
-    // console.log(`You clicked on the container ${e.target}`)
-    // console.log("You clicked", e.target);
-
     const target = e.target as HTMLElement;
-    // closest() - bubbling event
+    // closest() - bubbling event - goes up the hierarchy until it reaches player-card class
     const card = target.closest(".player-card") as HTMLElement;
     // If we dont click the img we get sent back
     if (!card) return;
-
-    // console.log("You clicked", target);
-    // console.log("Closest found", card);
 
     const idStr = card.dataset.id;
     if (idStr) {
@@ -83,9 +76,10 @@ if (songListContainer) {
       if (currentActive) currentActive.classList.remove("active");
 
       image.classList.add("active");
-
+      /* We set the state to stopped here so that whenever we click a new song, we always start at stopped...
+       which makes our play button logic function with minimal statements*/
       state = "stopped";
-      playButton.innerHTML = "&#9658";
+      playButton.innerText = "⏵︎";
 
       playSong(id, playlist, songTitleElement, songArtistElement);
     }
@@ -110,6 +104,8 @@ if (playButton) {
 // Arrow button logic - implement - plan is to have them be +1 or -1 on the songs id, changing
 if (arrowButton) {
   // logic
+  // Listener
+  // Able to discern between forward and backward
   // Might need to loop through the two buttons with a forEach to start with
 }
 

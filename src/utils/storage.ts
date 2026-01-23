@@ -20,20 +20,3 @@ export const loadSongs = (): Song[] => {
   // Parses the json string and structures our data
   return JSON.parse(storedData) as Song[];
 };
-
-
-// const saveToLocalStorage = () => {
-//   const jsonString = JSON.stringify(playlist);
-//   localStorage.setItem("playlistData", jsonString);
-// };
-
-// const loadFromLocalStorage = () => {
-//   const storedData = localStorage.getItem("playlistData");
-
-//   if (storedData) {
-//     const parsedData = JSON.parse(storedData) as Song[];
-
-//     playlist.length = 0;
-//     playlist.push(...parsedData);
-//   }
-// };

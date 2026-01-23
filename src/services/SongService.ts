@@ -50,11 +50,6 @@ const playlist: Song[] = [
   },
 ];
 
-// Two ways to write this function
-// export const getPlaylist = (): Song[] => {
-//     return [...playlist]
-// }
-
 // Creates a copy of the Song array without touching/mutating it
 // If we ever wanted to adjust our playlist we would need to use playlist and not getPlaylist
 export function getPlaylist(): Song[] {

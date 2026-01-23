@@ -178,14 +178,17 @@ header {
 
   padding: 0.75rem 1rem;
   font-size: 1.5rem;
+  transition: 0.2s;
 
   &:hover {
     background-color: aliceblue;
     color: #f224a3;
+    transition: 0.2s;
   }
 
   &:active {
     background-color: rgb(226, 237, 249);
+    transition: 0.2s;
   }
 }
 
@@ -202,10 +205,6 @@ header {
 .modal-btn-open {
   padding: 0.75rem 1.25rem;
   border-radius: 10rem;
-
-  /* Potentially a new menu could be added here */
-  &:hover {
-  }
 }
 
 .modal-btns {
@@ -220,10 +219,12 @@ header {
 
   padding: 0.75rem 1rem;
   font-size: 1.5rem;
+  transition: 0.2s;
 
   &:hover {
     background-color: #f224a3;
     color: aliceblue;
+    transition: 0.2s;
   }
 }
 
