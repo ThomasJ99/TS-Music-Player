@@ -1,0 +1,169 @@
+[
+  {
+    "id": 1,
+    "title": "Keep It Tucked",
+    "artist": "ThxSoMch",
+    "durationInSeconds": 174,
+    "album": {
+      "title": "Keep It Tucked",
+      "year": 2022,
+      "coverUrl": "/assets/album-1.jpg"
+    }
+  },
+
+  {
+    "id": 2,
+    "title": "Tonight",
+    "artist": "PinkPantheress",
+    "durationInSeconds": 175,
+    "album": {
+      "title": "Fancy That",
+      "year": 2025
+    }
+  },
+
+  {
+    "id": 3,
+    "title": "Aizo",
+    "artist": "King Gnu",
+    "durationInSeconds": 216,
+    "album": {
+      "title": "Aizo",
+      "year": 2026,
+      "coverUrl": "/assets/album-3.jpg"
+    }
+  },
+
+  {
+    "id": 4,
+    "title": "Underdog",
+    "artist": "Eve",
+    "durationInSeconds": 194,
+    "album": {
+      "title": "Underdog",
+      "year": 2025,
+      "coverUrl": "/assets/album-4.jpg"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Mirage",
+    "artist": "Creepy Nuts",
+    "durationInSeconds": 139,
+    "album": {
+      "title": "Mirage",
+      "year": 2023,
+      "coverUrl": "/assets/album-5.jpg"
+    }
+  },
+  {
+    "id": 6,
+    "title": "光のすみか",
+    "artist": "Rei Yasuda",
+    "durationInSeconds": 196,
+    "album": {
+      "title": "光のすみか",
+      "year": 2023,
+      "coverUrl": "/assets/album-6.jpg"
+    }
+  },
+  {
+    "id": 7,
+    "title": "プラットフォーム",
+    "artist": "Uru",
+    "durationInSeconds": 210,
+    "album": {
+      "title": "プラットフォーム",
+      "year": 2023,
+      "coverUrl": "/assets/album-7.jpg"
+    }
+  },
+  {
+    "id": 8,
+    "title": "yummy goodday",
+    "artist": "CENT",
+    "durationInSeconds": 201,
+    "album": {
+      "title": "yummy goodday",
+      "year": 2022,
+      "coverUrl": "/assets/album-8.jpg"
+    }
+  },
+  {
+    "id": 9,
+    "title": "ブリザード",
+    "artist": "Rokudenashi",
+    "durationInSeconds": 222,
+    "album": {
+      "title": "ブリザード",
+      "year": 2022,
+      "coverUrl": "/assets/album-9.jpg"
+    }
+  },
+  {
+    "id": 10,
+    "title": "化けの皮 (feat. こば・かなえる・重音テト)",
+    "artist": "MAISONdes",
+    "durationInSeconds": 180,
+    "album": {
+      "title": "化けの皮",
+      "year": 2023,
+      "coverUrl": "/assets/album-10.jpg"
+    }
+  },
+  {
+    "id": 11,
+    "title": "季節の灯",
+    "artist": "yama",
+    "durationInSeconds": 357,
+    "album": {
+      "title": "季節の灯",
+      "year": 2023,
+      "coverUrl": "/assets/album-11.jpg"
+    }
+  },
+  {
+    "id": 12,
+    "title": "Holding my hand",
+    "artist": "HIBANA",
+    "durationInSeconds": 186,
+    "album": {
+      "title": "Holding my hand",
+      "year": 2022,
+      "coverUrl": "/assets/album-12.jpg"
+    }
+  },
+  {
+    "id": 13,
+    "title": "Endless Night",
+    "artist": "THE SIXTH LIE",
+    "durationInSeconds": 244,
+    "album": {
+      "title": "DIFFERENTIAL",
+      "year": 2023,
+      "coverUrl": "/assets/album-13.jpg"
+    }
+  },
+  {
+    "id": 14,
+    "title": "IRIS OUT",
+    "artist": "Kenshi Yonezu",
+    "durationInSeconds": 152,
+    "album": {
+      "title": "IRIS OUT",
+      "year": 2023,
+      "coverUrl": "/assets/album-14.jpg"
+    }
+  },
+  {
+    "id": 15,
+    "title": "NEW",
+    "artist": "The Winking Owl",
+    "durationInSeconds": 236,
+    "album": {
+      "title": "Thanksラブレター",
+      "year": 2021,
+      "coverUrl": "/assets/album-15.jpg"
+    }
+  }
+]
